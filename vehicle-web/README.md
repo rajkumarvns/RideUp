@@ -1,5 +1,21 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Authentication
+
+Copy `.env.example` to `.env.local` and set `MONGODB_URL`, `AUTH_SECRET`,
+`AUTH_GOOGLE_ID`, and `AUTH_GOOGLE_SECRET`.
+
+Create a Web application OAuth client in Google Cloud Console and add this
+authorized redirect URI:
+
+```text
+http://localhost:3000/api/auth/callback/google
+```
+
+For production, add the equivalent HTTPS URL for the deployed domain. Google
+users are created in MongoDB on first sign-in and receive the default `user`
+role. Existing users are matched by email, so their current role is preserved.
+
 ## Getting Started
 
 First, run the development server:

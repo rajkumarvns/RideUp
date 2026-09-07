@@ -2,8 +2,8 @@ import mongoose, { Mongoose } from "mongoose";
 interface IUser extends mongoose.Document {
   name: string;
   email: string;
-  password: string;
-  role: "user" |"partner"| "admin" ;
+  password?: string;
+  role: "user" | "partner" | "admin";
   createdAt: Date;
   updatedAt: Date;
 }

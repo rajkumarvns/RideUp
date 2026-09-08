@@ -53,7 +53,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         };
       },
     }),
-    Google,
+    Google({
+      clientId:process.env.AUTH_GOOGLE_ID,
+      clientSecret:process.env.AUTH_GOOGLE_SECRET,
+    })
   ],
   callbacks: {
     async signIn({ user, account, profile }) {

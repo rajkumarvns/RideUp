@@ -5,7 +5,7 @@ import VehicleSlider from './VehicleSlider'
 import AuthModal from './AuthModal'
 
 function PublicHome() {
-    const [authOpen, setAuthOpen] = useState(false)
+    const [authOpen, setAuthOpen] = useState(true)
     return (
         <>
             <HeroSection />

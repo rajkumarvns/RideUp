@@ -53,9 +53,17 @@ function AuthModal({ open, onClose }: propType) {
                             </div>
                             <button className='w-full h-11 rounded-xl border border-black/20 flex items-center justify-center gap-3 text-sm font-semibold hover:text-white hover:bg-black/90 transition-all duration-300' >
 
-                                <Image src={"/gImage.avif"} alt='google'width={20} height={20}/>
+                                <Image src={"/gImage.avif"} alt='google' width={20} height={20} />
+                                <span className=''>Continue With Google</span>
                             </button>
 
+                            <div className='flex items-center gap-4 my-6'>
+                                <div className='flex-1 h-px bg-black/10' />
+                                <div className='text-xs text-gray-500'>OR</div>
+
+
+                                <div className='flex-1 h-px bg-black/10' />
+                            </div>
                         </div>
                     </motion.div>
 

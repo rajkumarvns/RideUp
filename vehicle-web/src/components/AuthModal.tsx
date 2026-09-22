@@ -1,14 +1,15 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'motion/react'
-import { X } from 'lucide-react'
+import { Mail, X } from 'lucide-react'
 import Image from 'next/image'
 type propType = {
     open: boolean,
     onClose: () => void
 }
-
+type stepType = "login" | "signup" | "otp"
 function AuthModal({ open, onClose }: propType) {
+    const [step, setStep] = useState<stepType>("login")
     return (
         <>
             {open && <>
@@ -63,6 +64,23 @@ function AuthModal({ open, onClose }: propType) {
 
 
                                 <div className='flex-1 h-px bg-black/10' />
+                            </div>
+                            <div >
+                                {step == "login" && (
+                                    <motion.div
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                    >
+                                        <h1 className='text-xl font-semibold'>Welcome back</h1>
+                                        <div className='mt-5 space-y-4'>
+                                            <div className='flex items-center gap-3 border border-black/20 rounded-xl px-4 py-3'>
+                                                <Mail size={18} className='' />
+                                                <input type="text" placeholder='email' />
+
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                )}
                             </div>
                         </div>
                     </motion.div>

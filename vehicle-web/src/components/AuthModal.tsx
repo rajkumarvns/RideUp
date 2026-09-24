@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { motion } from 'motion/react'
-import { Mail, X } from 'lucide-react'
+import { Lock, Mail, X, User } from 'lucide-react'
 import Image from 'next/image'
 type propType = {
     open: boolean,
@@ -22,7 +22,6 @@ function AuthModal({ open, onClose }: propType) {
                         opacity: 1,
 
                     }}
-                    onClick={onClose}
                     className='fixed inset-0 z-[90] bg-black/80 backdrop-blur-md'
                 >
                     <motion.div
@@ -74,10 +73,57 @@ function AuthModal({ open, onClose }: propType) {
                                         <h1 className='text-xl font-semibold'>Welcome back</h1>
                                         <div className='mt-5 space-y-4'>
                                             <div className='flex items-center gap-3 border border-black/20 rounded-xl px-4 py-3'>
-                                                <Mail size={18} className='' />
-                                                <input type="text" placeholder='email' />
+                                                <Mail size={18} className='text-gray-500' />
+                                                <input type="email" placeholder='email'
+                                                    className='w-full bg-transparent outline-none text-sm '
+                                                />
 
                                             </div>
+                                            <div className='flex items-center gap-3 border border-black/20 rounded-xl px-4 py-3'>
+                                                <Lock size={18} className='text-gray-500' />
+                                                <input type="password" placeholder='password'
+                                                    className='w-full bg-transparent outline-none text-sm '
+                                                />
+
+                                            </div>
+                                            <button className='w-full h-11 rounded-xl bg-black text-white text-sm font-semibold hover:bg-black/90 transition-all duration-300'>Login</button>
+                                            <p className='text-sm text-gray-500 text-center'>Don't have an account? <span className='text-black cursor-pointer font-semibold hover:underline' onClick={() => setStep('signup')}>Sign up</span></p>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </div>
+
+                            <div >
+                                {step == "signup" && (
+                                    <motion.div
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                    >
+                                        <h1 className='text-xl font-semibold'>Create Account</h1>
+                                        <div className='mt-5 space-y-4'>
+                                            <div className='flex items-center gap-3 border border-black/20 rounded-xl px-4 py-3'>
+                                                <User size={18} className='text-gray-500' />
+                                                <input type="text" placeholder='Full Name'
+                                                    className='w-full bg-transparent outline-none text-sm '
+                                                />
+
+                                            </div>
+                                            <div className='flex items-center gap-3 border border-black/20 rounded-xl px-4 py-3'>
+                                                <Mail size={18} className='text-gray-500' />
+                                                <input type="email" placeholder='email'
+                                                    className='w-full bg-transparent outline-none text-sm '
+                                                />
+
+                                            </div>
+                                            <div className='flex items-center gap-3 border border-black/20 rounded-xl px-4 py-3'>
+                                                <Lock size={18} className='text-gray-500' />
+                                                <input type="password" placeholder='password'
+                                                    className='w-full bg-transparent outline-none text-sm '
+                                                />
+
+                                            </div>
+                                            <button className='w-full h-11 rounded-xl bg-black text-white text-sm font-semibold hover:bg-black/90 transition-all duration-300'>Sign up</button>
+                                            <p className='text-sm text-gray-500 text-center'>Already have an account? <span className='text-black cursor-pointer font-semibold hover:underline' onClick={() => setStep('login')}>Login</span></p>
                                         </div>
                                     </motion.div>
                                 )}

@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { motion } from 'motion/react'
+import { AnimatePresence, motion } from 'motion/react'
 import { Lock, Mail, X, User } from 'lucide-react'
 import Image from 'next/image'
 type propType = {
@@ -11,7 +11,7 @@ type stepType = "login" | "signup" | "otp"
 function AuthModal({ open, onClose }: propType) {
     const [step, setStep] = useState<stepType>("login")
     return (
-        <>
+        <AnimatePresence>
             {open && <>
                 <motion.div
                     initial={{
@@ -20,6 +20,10 @@ function AuthModal({ open, onClose }: propType) {
                     }}
                     animate={{
                         opacity: 1,
+
+                    }}
+                    exit={{
+                        opacity: 0,
 
                     }}
                     className='fixed inset-0 z-[90] bg-black/80 backdrop-blur-md'
@@ -37,6 +41,11 @@ function AuthModal({ open, onClose }: propType) {
                         }}
                         transition={{
                             duration: 0.35, ease: "easeOut"
+                        }}
+                        exit={{
+                            scale: 0.95,
+                            opacity: 0,
+                            y: 40
                         }}
                         className='fixed inset-0 z-[100] flex items-center justify-center px-4'
                     >
@@ -133,7 +142,7 @@ function AuthModal({ open, onClose }: propType) {
 
                 </motion.div>
             </>}
-        </>
+        </AnimatePresence>
     )
 }
 

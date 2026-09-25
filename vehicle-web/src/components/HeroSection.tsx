@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion, scale } from "motion/react"
 import { Bike, Bus, Car, Truck } from 'lucide-react'
-function HeroSection() {
+function HeroSection({ onAuthRequired }: { onAuthRequired: () => void }) {
     return (
         <div className='relative min-h-screen w-full overflow-hidden'>
             <div className='absolute inset-0 bg-cover bg-center bg-[url("/heroImage.png")]' />
@@ -43,6 +43,7 @@ function HeroSection() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className='mt-12 px-10 py-4 bg-white text-black rounded-full font-semibold'
+                    onClick={onAuthRequired}
                 >Book Now</motion.button>
             </div>
 

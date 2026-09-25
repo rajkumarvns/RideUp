@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { Lock, Mail, X, User } from 'lucide-react'
 import Image from 'next/image'
+import axios from 'axios'
 type propType = {
     open: boolean,
     onClose: () => void
@@ -10,6 +11,17 @@ type propType = {
 type stepType = "login" | "signup" | "otp"
 function AuthModal({ open, onClose }: propType) {
     const [step, setStep] = useState<stepType>("login")
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("");
+    const handleSignUp = async () => {
+        try {
+            const { data } = await axios.post("/api/auth/register", { name, email, password })
+            console.log(data)
+        } catch (error: any) {
+            console.log(error?.response?.data?.message || "")
+        }
+    }
     return (
         <AnimatePresence>
             {open && <>
@@ -114,6 +126,8 @@ function AuthModal({ open, onClose }: propType) {
                                                 <User size={18} className='text-gray-500' />
                                                 <input type="text" placeholder='Full Name'
                                                     className='w-full bg-transparent outline-none text-sm '
+                                                    onChange={(e) => setName(e.target.value)}
+                                                    value={name}
                                                 />
 
                                             </div>
@@ -121,6 +135,8 @@ function AuthModal({ open, onClose }: propType) {
                                                 <Mail size={18} className='text-gray-500' />
                                                 <input type="email" placeholder='email'
                                                     className='w-full bg-transparent outline-none text-sm '
+                                                    onChange={(e) => setEmail(e.target.value)}
+                                                    value={email}
                                                 />
 
                                             </div>
@@ -128,10 +144,12 @@ function AuthModal({ open, onClose }: propType) {
                                                 <Lock size={18} className='text-gray-500' />
                                                 <input type="password" placeholder='password'
                                                     className='w-full bg-transparent outline-none text-sm '
+                                                    onChange={(e) => setPassword(e.target.value)}
+                                                    value={password}
                                                 />
 
                                             </div>
-                                            <button className='w-full h-11 rounded-xl bg-black text-white text-sm font-semibold hover:bg-black/90 transition-all duration-300'>Sign up</button>
+                                            <button className='w-full h-11 rounded-xl bg-black text-white text-sm font-semibold hover:bg-black/90 transition-all duration-300' onClick={handleSignUp}>Sign up</button>
                                             <p className='text-sm text-gray-500 text-center'>Already have an account? <span className='text-black cursor-pointer font-semibold hover:underline' onClick={() => setStep('login')}>Login</span></p>
                                         </div>
                                     </motion.div>

@@ -1,7 +1,8 @@
 'use client'
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { Lock, Mail, X, User } from 'lucide-react'
+import { Lock, Mail, X, User, Loader2Icon } from 'lucide-react'
+import { toast } from 'sonner'
 import Image from 'next/image'
 import axios from 'axios'
 type propType = {
@@ -14,12 +15,17 @@ function AuthModal({ open, onClose }: propType) {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
+    const[loading, setLoading] = useState(false)
     const handleSignUp = async () => {
         try {
+            setLoading(true)
             const { data } = await axios.post("/api/auth/register", { name, email, password })
             console.log(data)
-        } catch (error: any) {
-            console.log(error?.response?.data?.message || "")
+            setLoading(false)
+            toast.success("Signup successfull")
+        } catch (error) {
+            setLoading(false)
+            toast.error("Signup failed")
         }
     }
     return (
@@ -108,7 +114,7 @@ function AuthModal({ open, onClose }: propType) {
 
                                             </div>
                                             <button className='w-full h-11 rounded-xl bg-black text-white text-sm font-semibold hover:bg-black/90 transition-all duration-300'>Login</button>
-                                            <p className='text-sm text-gray-500 text-center'>Don't have an account? <span className='text-black cursor-pointer font-semibold hover:underline' onClick={() => setStep('signup')}>Sign up</span></p>
+                                            <p className='text-sm text-gray-500 text-center'>Don&apos;t have an account? <span className='text-black cursor-pointer font-semibold hover:underline' onClick={() => setStep('signup')}>Sign up</span></p>
                                         </div>
                                     </motion.div>
                                 )}
@@ -149,7 +155,7 @@ function AuthModal({ open, onClose }: propType) {
                                                 />
 
                                             </div>
-                                            <button className='w-full h-11 rounded-xl bg-black text-white text-sm font-semibold hover:bg-black/90 transition-all duration-300' onClick={handleSignUp}>Sign up</button>
+                                            <button className='w-full h-11 rounded-xl bg-black text-white text-sm font-semibold hover:bg-black/90 transition-all duration-300' disabled={loading} onClick={handleSignUp}>{loading? <Loader2Icon className="animate-spin"/> : 'Sign up'}</button>
                                             <p className='text-sm text-gray-500 text-center'>Already have an account? <span className='text-black cursor-pointer font-semibold hover:underline' onClick={() => setStep('login')}>Login</span></p>
                                         </div>
                                     </motion.div>
